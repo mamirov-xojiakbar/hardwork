@@ -27,7 +27,15 @@ export class LidService {
   }
 
   findOne(id: number) {
-    return this.lidRepo.findOneBy({ id });
+    return this.lidRepo.findOne({
+      where: { id },
+      relations: {
+        lid_stage_id: true,
+        lid_status_id: true,
+        target_id: true,
+        cancel_reson_id: true,
+      },
+    });
   }
 
   update(id: number, updateLidDto: UpdateLidDto) {
