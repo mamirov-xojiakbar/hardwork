@@ -12,6 +12,10 @@ import { LidStatus } from './lid_status/entities/lid_status.entity';
 import { ReasonLidModule } from './reason_lid/reason_lid.module';
 import { ReasonLid } from './reason_lid/entities/reason_lid.entity';
 import { Lid } from './lid/entities/lid.entity';
+import { RoleModule } from './role/role.module';
+import { Role } from './role/entities/role.entity';
+import { StuffModule } from './stuff/stuff.module';
+import { Stuff } from './stuff/entities/stuff.entity';
 
 @Module({
   imports: [
@@ -23,7 +27,7 @@ import { Lid } from './lid/entities/lid.entity';
       username: 'postgres',
       password: 'xojiakbar',
       database: 'hardwork',
-      entities: [Stage, Target, LidStatus, ReasonLid, Lid],
+      entities: [Stage, Target, LidStatus, ReasonLid, Lid, Role, Stuff],
       synchronize: true,
     }),
     LidModule,
@@ -31,6 +35,8 @@ import { Lid } from './lid/entities/lid.entity';
     TargetModule,
     LidStatusModule,
     ReasonLidModule,
+    RoleModule,
+    StuffModule,
   ],
   controllers: [],
   providers: [],
