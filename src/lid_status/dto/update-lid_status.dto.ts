@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateLidStatusDto } from './create-lid_status.dto';
 
-export class UpdateLidStatusDto extends PartialType(CreateLidStatusDto) {}
+import { Field, ObjectType } from "@nestjs/graphql";
+
+@ObjectType()
+export class UpdateLidStatusDto {
+    @Field()
+    status?:string
+}

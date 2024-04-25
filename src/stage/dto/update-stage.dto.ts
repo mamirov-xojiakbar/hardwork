@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateStageDto } from './create-stage.dto';
 
-export class UpdateStageDto extends PartialType(CreateStageDto) {}
+import { Field, ObjectType } from "@nestjs/graphql";
+
+@ObjectType()
+export class UpdateStageDto {
+    @Field()
+    name?:string
+}

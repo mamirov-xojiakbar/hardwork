@@ -7,42 +7,45 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class LidService {
-  constructor(
-    @InjectRepository(Lid) private readonly lidRepo: Repository<Lid>,
-  ) {}
+  
+  constructor(@InjectRepository(Lid) private lidRepo:Repository<Lid>){}
 
-  create(createLidDto: CreateLidDto) {
-    return this.lidRepo.save(createLidDto);
+  create(createLidDto:CreateLidDto) {
+  return this.lidRepo.save(createLidDto)
   }
 
   findAll() {
     return this.lidRepo.find({
-      relations: {
-        lid_stage_id: true,
-        lid_status_id: true,
-        target_id: true,
-        cancel_reson_id: true,
-      },
-    });
+      relations:{
+        lid_status_id:true,
+        reason_lid_id:true,
+        stage_id:true,
+        target_id:true,
+        students:true,
+        trial_lesson_group_id:true
+
+      }
+      ,
+      // select:{
+      //   first_name:true,
+      //   lid_status_id:{
+      //     status:true
+      //   }
+      // }
+    })
   }
 
   findOne(id: number) {
-    return this.lidRepo.findOne({
-      where: { id },
-      relations: {
-        lid_stage_id: true,
-        lid_status_id: true,
-        target_id: true,
-        cancel_reson_id: true,
-      },
-    });
+    return this.lidRepo.findOneBy({id})
   }
 
-  update(id: number, updateLidDto: UpdateLidDto) {
-    return this.lidRepo.update({ id }, updateLidDto);
+  async update(id: number, updateLidDto: UpdateLidDto) {
+    await this.lidRepo.update({id},updateLidDto)
+    return this.findOne(id)
   }
 
-  remove(id: number) {
-    return this.lidRepo.delete({ id });
+  async remove(id: number) {
+    await this.lidRepo.delete({id})
+    return id
   }
 }

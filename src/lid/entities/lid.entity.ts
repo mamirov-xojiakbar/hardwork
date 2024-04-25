@@ -1,44 +1,69 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Target } from '../../target/entities/target.entity';
-import { Stage } from '../../stage/entities/stage.entity';
-import { LidStatus } from '../../lid_status/entities/lid_status.entity';
-import { ReasonLid } from '../../reason_lid/entities/reason_lid.entity';
+import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Group } from "src/group/entities/group.entity";
+import { LidStatus } from "src/lid_status/entities/lid_status.entity";
+import { ReasonLid } from "src/reason_lid/entities/reason_lid.entity";
+import { Stage } from "src/stage/entities/stage.entity";
+import { Student } from "src/students/entities/student.entity";
+import { Target } from "src/target/entities/target.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+@ObjectType()
 @Entity()
 export class Lid {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @Field(()=>ID)
+    @PrimaryGeneratedColumn()
+    id:number
 
-  @Column()
-  first_name: string;
+    @Field()
+    @Column()
+    first_name:string
 
-  @Column()
-  last_name: string;
+    @Field()
+    @Column()
+    last_name:string
 
-  @Column()
-  phone_number: string;
+    @Field()
+    @Column()
+    phone_number:string
 
-  @ManyToOne(() => Target, (target) => target.lids)
-  target_id: Target;
+    
+    @ManyToOne(()=>Target,(data)=>data.targets)
+    @Field(()=>Target)
+    target_id:Target
 
-  @ManyToOne(() => Stage, (stage) => stage.lids)
-  lid_stage_id: Stage;
+    @Field()
+    @ManyToOne(()=>Stage,(data)=>data.stages)
+    @Field(()=>Stage)
+     stage_id:Stage
 
-  @Column()
-  test_date: string;
+     @Field()
+    @Column()
+    test_date:Date
 
-  @Column()
-  trial_lesson_date: string;
+    @Field()
+    @Column()
+    trial_lesson_date:Date
 
-  @Column()
-  trial_lesson_time: string;
+    @Field()
+    @Column()
+    trial_lesson_time:string
 
-  @Column()
-  trial_lesson_group_id: string;
+    
+    @Column()
+    @ManyToOne(()=>Group,(data)=>data.groupLids)
+    @Field(()=>Group)
+    trial_lesson_group_id:Group
 
-  @ManyToOne(() => LidStatus, (lidStatus) => lidStatus.lids)
-  lid_status_id: LidStatus;
 
-  @ManyToOne(() => ReasonLid, (reasonLid) => reasonLid.lids)
-  cancel_reson_id: ReasonLid;
+    @ManyToOne(()=>LidStatus,(data)=>data.lidStatus)
+    @Field(()=>LidStatus)
+    lid_status_id:LidStatus
+    
+    @ManyToOne(()=>ReasonLid,(data)=>data.reasons_lid)
+    @Field(()=>ReasonLid)
+    reason_lid_id:ReasonLid
+    
+    @OneToMany(()=>Student,(data)=>data.lid_id)
+    @Field(()=>Student)
+    students:Student[]
 }

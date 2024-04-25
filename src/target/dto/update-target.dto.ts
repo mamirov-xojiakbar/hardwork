@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateTargetDto } from './create-target.dto';
+import { Field, InputType } from "@nestjs/graphql";
 
-export class UpdateTargetDto extends PartialType(CreateTargetDto) {}
+@InputType()
+export class UpdateTargetDto{
+    @Field({nullable:true})
+    name?:string
+}

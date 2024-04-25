@@ -1,13 +1,28 @@
+import { Field, ObjectType } from "@nestjs/graphql"
+
+@ObjectType()
 export class CreateLidDto {
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  target_id: any;
-  lid_stage_id: any;
-  test_date: string;
-  trial_lesson_date: string;
-  trial_lesson_time: string;
-  trial_lesson_group_id: string;
-  lid_status_id: any;
-  cancel_reson_id: any;
+    @Field()
+    first_name:string
+    @Field()
+    last_name:string
+    @Field()
+    phone_number:string
+    @Field()
+    target_id:object
+    @Field()
+    lid_stage_id:object
+    @Field()
+    test_date:Date
+    @Field()
+    trial_lesson_date:Date
+    @Field()
+    trial_lesson_time:string
+    @Field()
+    trial_lesson_group_id:object
+    @Field()
+    lid_status_id:object
+    @Field()
+    reason_lid_id:object
+
 }

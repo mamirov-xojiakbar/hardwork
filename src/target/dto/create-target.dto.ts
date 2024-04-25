@@ -1,3 +1,7 @@
+import { Field, InputType } from "@nestjs/graphql";
+
+@InputType()
 export class CreateTargetDto {
-  name: string;
+    @Field({nullable:true})
+    name:string
 }
